@@ -1,0 +1,7 @@
+{
+  "name": " My Steamy",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
