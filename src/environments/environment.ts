@@ -5,6 +5,7 @@
 export const environment = {
   production: false,
   API_URL: 'https://www.cheapshark.com/api/1.0',
+  API_URL_REDIRECT: 'https://www.cheapshark.com',
 };
 
 /*
