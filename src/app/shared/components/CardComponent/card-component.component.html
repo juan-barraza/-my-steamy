@@ -1,0 +1,29 @@
+<ion-card (click)="onDetailDeal()">
+  <div class="image-toggle">
+    <img class="image-thumb" alt="deal image" src="{{ deal?.thumb }}" />
+    <div class="heart">
+      <ion-icon
+        [name]="isFavorite ? 'heart' : 'heart-outline'"
+        [class.active]="isFavorite"
+        (click)="onFavorite($event)"
+      ></ion-icon>
+    </div>
+    <div class="savings">
+      {{ "SAVE " + (deal?.savings | number: "1.0-0") + "%" }}
+    </div>
+  </div>
+  <ion-card-header>
+    <ion-card-title>{{ deal?.title }}</ion-card-title>
+    <img class="img-store" alt="store Url" src="{{ storeLogoUrl }}" />
+  </ion-card-header>
+
+    <div class="footer">
+      <div class="raiting">
+        <ion-icon name="star-sharp"></ion-icon>
+        {{ deal?.dealRating }}
+      </div>
+      <div class="price">
+        {{ "$" + deal?.salePrice }}
+      </div>
+    </div>
+</ion-card>
