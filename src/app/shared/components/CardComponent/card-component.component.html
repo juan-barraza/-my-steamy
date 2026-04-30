@@ -1,4 +1,4 @@
-<ion-card (click)="onDetailDeal()">
+<ion-card (click)="onDetailDeal()" [ngClass]="layout">
   <div class="image-toggle">
     <img class="image-thumb" alt="deal image" src="{{ deal?.thumb }}" />
     <div class="heart">

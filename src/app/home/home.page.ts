@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Deal } from '../core/models/deal.type';
 import { GameProvider } from '../shared/services/GameProvider/game-provider';
 import { Store } from '../core/models/store.type';
+import { debounceTime, distinctUntilChanged, Subject, Subscription, switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-home',
@@ -10,39 +11,79 @@ import { Store } from '../core/models/store.type';
   standalone: false,
 })
 export class HomePage implements OnInit {
-  public deal: Deal | null = null;
-  public store: Store | null = null;
+  public deals: Deal[] | [] = [];
+  public stores: Store[] | [] = [];
+  public isSearchingDeal: boolean = false;
+  public isLoadingDeal: boolean = false;
+  private searchSubjet = new Subject<string>();
+  private searchSubscription!: Subscription;
 
   constructor(private readonly gameProvider: GameProvider) { }
 
   ngOnInit() {
-    this.chargeOneDeal();
-    this.getStoreToShowImage();
+    this.chargeDeals();
+    this.getStores();
+    this.searchSubscription = this.searchSubjet.pipe(
+      debounceTime(400),
+      distinctUntilChanged(),
+      switchMap(query => {
+        this.isLoadingDeal = true;
+        if (query.trim() === '') {
+          this.isSearchingDeal = false;
+          return this.gameProvider.getDealsHoster();
+        }
+        this.isSearchingDeal = true;
+        return this.gameProvider.getOffertsByTitle(query);
+      })
+    ).subscribe({
+      next: (deals) => {
+        this.deals = deals
+        this.isLoadingDeal = false;
+      },
+      error: (err) => {
+        console.error(err)
+        this.isLoadingDeal = false;
+      }
+    })
   }
 
-  private chargeOneDeal() {
+  getStoreLogo(storeID: string): string {
+    const store = this.stores.find(s => s.storeID === storeID);
+    return store ? 'https://www.cheapshark.com' + store.images.logo : '';
+  }
+
+  onSearchChange(event: any) {
+    const query = event.detail.value ?? '';
+    this.searchSubjet.next(query);
+  }
+
+  private chargeDeals() {
     this.gameProvider.getDealsHoster()
       .subscribe({
         next: (deals) => {
           console.log(deals);
-          this.deal = deals[0];
+          this.deals = deals;
         },
         error: (err) => {
           console.error('Error fetching deals:', err);
         }
       });
   }
-  private getStoreToShowImage() {
+
+  private getStores() {
     this.gameProvider.getStores()
       .subscribe({
         next: (stores) => {
-          console.log(stores);
-          this.store = stores.filter(s => s.storeID === this.deal?.storeID)[0];
+          this.stores = stores;
         },
         error: (error) => {
           console.error(error);
         }
       });
+  }
+
+  ngOnDestroy() {
+    this.searchSubscription.unsubscribe();
   }
 
 }

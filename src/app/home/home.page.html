@@ -1,15 +1,61 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>
-      Blank
-    </ion-title>
+    <ion-title> Game Deals </ion-title>
+    <ion-title size="small">CRYSTAL CLEAR SAVINGS</ion-title>
+    <ion-buttons slot="end">
+      <ion-button>
+        <ion-icon name="person-circle-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
+  <ion-searchbar
+    placeholder="Search for games..."
+    (ionInput)="onSearchChange($event)"
+  >
+  </ion-searchbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <app-card-component
-  [deal]="deal"
-  [storeLogoUrl]="'https://www.cheapshark.com/img/stores/logos/22.png'"
-  >
-  </app-card-component>
+  <h1>{{ isSearchingDeal ? 'Results for you' : '🔥 Hottest Deals Right Now' }}</h1>
+  @if (isLoadingDeal) { @for (item of [1,2,3]; track $index) {
+  <div class="skeleton-card">
+    <ion-skeleton-text [animated]="true" class="skeleton-image">
+    </ion-skeleton-text>
+
+    <ion-skeleton-text [animated]="true" class="skeleton-title">
+    </ion-skeleton-text>
+
+    <ion-skeleton-text [animated]="true" class="skeleton-store">
+    </ion-skeleton-text>
+
+    <div class="skeleton-footer">
+      <ion-skeleton-text [animated]="true" class="skeleton-rating">
+      </ion-skeleton-text>
+      <ion-skeleton-text [animated]="true" class="skeleton-price">
+      </ion-skeleton-text>
+    </div>
+  </div>
+  } } @else if (isSearchingDeal) {
+  <div class="vertical-list">
+    @for (deal of deals; track $index) {
+    <app-card-component
+      [deal]="deal"
+      [storeLogoUrl]="getStoreLogo(deal.storeID)"
+      layout="vertical"
+    >
+    </app-card-component>
+    }
+  </div>
+  } @else {
+  <div class="horizontal-scroll">
+    @for (deal of deals; track $index) {
+    <app-card-component
+      [deal]="deal"
+      [storeLogoUrl]="getStoreLogo(deal.storeID)"
+      layout="horizontal"
+    >
+    </app-card-component>
+    }
+  </div>
+  }
 </ion-content>

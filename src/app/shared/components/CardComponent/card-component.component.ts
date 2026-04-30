@@ -11,6 +11,7 @@ export class CardComponent implements OnInit {
   @Input() deal: Deal | null = null;
   @Input() storeLogoUrl?: string = '';
   @Input() isFavorite: boolean = false;
+  @Input() layout: 'horizontal' | 'vertical' = 'vertical';
   @Output() favoriteToggled = new EventEmitter<Deal>();
   @Output() dealClicked = new EventEmitter<Deal>();
 
