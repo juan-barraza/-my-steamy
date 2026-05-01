@@ -86,7 +86,6 @@ export class HomePage implements OnInit {
     this.gameProvider.getDealsHoster()
       .subscribe({
         next: (deals) => {
-          console.log(deals);
           this.deals = deals;
         },
         error: (err) => {

@@ -10,7 +10,7 @@ const routes: Routes = [
     children: [
       {path: 'home', loadChildren: () => import('../tabs/home/home.module').then(m => m.HomePageModule)},
       {path: 'favorite', loadChildren: () => import('../tabs/favorites/favorites.module').then(m => m.FavoritesPageModule)},
-      {path: '**  ', redirectTo: 'home', pathMatch: 'full'}
+      {path: '', redirectTo: 'home', pathMatch: 'full'}
     ]
   }
 ];
