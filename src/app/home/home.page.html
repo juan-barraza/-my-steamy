@@ -42,6 +42,7 @@
       [deal]="deal"
       [storeLogoUrl]="getStoreLogo(deal.storeID)"
       layout="vertical"
+      (dealClicked)="onDetailDeal($event)"
     >
     </app-card-component>
     }
@@ -53,6 +54,7 @@
       [deal]="deal"
       [storeLogoUrl]="getStoreLogo(deal.storeID)"
       layout="horizontal"
+      (dealClicked)="onDetailDeal($event)"
     >
     </app-card-component>
     }

@@ -1,0 +1,46 @@
+<ion-header>
+  <div class="image-container">
+    <img alt="image background" src="{{ deal?.thumb }}" />
+    <ion-button fill="clear" class="close-btn" (click)="close()">
+      <ion-icon slot="icon-only" name="close-circle-outline"></ion-icon>
+    </ion-button>
+  </div>
+</ion-header>
+
+<div class="content">
+  <div class="deal-header">
+    <h1>{{ deal?.title }}</h1>
+    <img class="img-store" alt="store Url" src="{{ storeLogoUrl }}" />
+  </div>
+
+  <div class="rate-metacrit-container">
+    <div class="raiting">
+      <ion-icon name="star-sharp"></ion-icon>
+      <span>{{ deal?.dealRating }}</span>
+      <h6>DEAL RATING</h6>
+    </div>
+    <div class="metacritic">
+      <ion-icon name="game-controller"></ion-icon>     
+      <span>{{ deal?.metacriticScore }}</span>
+      <h6>METACRITIC</h6>
+    </div>
+  </div>
+
+  <div class="price">
+    <div class="sale-price">
+      <span>{{ "$" + deal?.salePrice }}</span>
+      <h6>{{ "$" + deal?.normalPrice }}</h6>
+    </div>
+    <div class="saving-price">
+      <span>{{ "You Save " + (deal?.savings | number: "1.2-2") }} ({{
+        (deal?.savings | number: "1.0-0") + "%"
+      }})</span>
+    </div>
+  </div>
+
+  <ion-button fill="clear" class="button-view" (click)="onViewDeal()">
+    VIEW DEAL
+    <ion-icon name="open-outline"></ion-icon>
+  </ion-button>
+
+</div>

@@ -1,0 +1,171 @@
+:host {
+  background: #0A192F; 
+  border-radius: 30px 30px 0 0;
+  overflow: hidden;
+  display: block
+}
+
+ion-header {
+
+  .image-container {
+    position: relative;
+    &::after {
+    content: '';           
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 60%;           
+    background: linear-gradient(
+      to bottom,
+      transparent,         
+      #0A192F             
+    );
+  }
+    img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+    .close-btn {
+
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      ion-icon {
+        font-size: 40px;
+        color: white;
+      }
+    }
+  }
+}
+
+.content {
+  height: 400px;
+  width: 90%;
+  overflow: hidden;
+  border-radius: 20px;
+  margin: 0 auto;
+  background:  #0a1729;
+  padding: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.08);  
+
+  .deal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    overflow: hidden;
+    gap: 10px;
+    padding: 8px 12px;
+
+     h1 {
+      font-size: 1.3rem;
+      font-weight: bold;
+    }
+
+    .img-store {
+      height: 30px;
+      width: 30px;
+    }
+  }
+
+  .rate-metacrit-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    padding: 6px 12px;
+    
+    
+    .raiting, .metacritic  {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      background: #18212f;
+      border-radius: 10px;
+      padding: 10px 0;
+      border: 1px solid rgba(255,255,255,0.08);
+      font-size: 1.2rem;
+      font-weight: bold;
+      h6 {
+        margin: 0;
+        font-family: 'Courier New', Courier, monospace;
+        color: #4c5b74;
+        font-size: 10px;
+        letter-spacing: 1px;
+      }
+    }
+    .raiting {
+      ion-icon {
+        font-size: 25px;
+        color: #f4c542;
+      }
+    }
+  
+     .metacritic {
+      ion-icon {
+        font-size: 25px;
+        color: #3371b3;
+      }
+    }
+  }
+
+  .price {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    align-items: start;
+    gap: 3px;
+    padding: 10px 15px;
+    background: #18212f;
+    border-radius: 10px;
+    margin: 12px 12px 0 12px;
+
+    .sale-price {
+      flex: 1;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 6px;
+      font-size: 2rem;
+      font-weight: bold;
+      h6 {
+        font-family: 'Courier New', Courier, monospace;
+        font-size: 15px;
+        color: #4c5b74;
+        text-decoration: line-through;
+        text-decoration-color: #4c5b74;
+      }
+
+    }   
+
+    .saving-price {
+      color:aqua;
+      font-size: 15px;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+  }
+
+  .button-view {
+    height: 20%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    margin-top: 20px;
+    font-weight: bold;
+    font-family: Arial, Helvetica, sans-serif;
+    --background: aqua;
+    --color: #0A192F;
+    --border-radius: 10px;
+    --box-shadow: 0 0 15px rgba(0, 229, 255, 0.6),   
+                0 0 30px rgba(0, 229, 255, 0.3);
+  }
+
+
+
+}

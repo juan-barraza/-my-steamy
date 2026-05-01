@@ -3,6 +3,8 @@ import { Deal } from '../core/models/deal.type';
 import { GameProvider } from '../shared/services/GameProvider/game-provider';
 import { Store } from '../core/models/store.type';
 import { debounceTime, distinctUntilChanged, Subject, Subscription, switchMap } from 'rxjs';
+import { ModalController } from '@ionic/angular';
+import { DealModalComponent } from '../shared/components/deal-modal/deal-modal.component';
 
 @Component({
   selector: 'app-home',
@@ -18,7 +20,10 @@ export class HomePage implements OnInit {
   private searchSubjet = new Subject<string>();
   private searchSubscription!: Subscription;
 
-  constructor(private readonly gameProvider: GameProvider) { }
+  constructor(
+    private readonly gameProvider: GameProvider,
+    private readonly modalCtr: ModalController,
+  ) { }
 
   ngOnInit() {
     this.chargeDeals();
@@ -45,6 +50,23 @@ export class HomePage implements OnInit {
         this.isLoadingDeal = false;
       }
     })
+  }
+
+  async onDetailDeal(deal: Deal) {
+    const storeLogoUrl = this.getStoreLogo(deal.storeID);
+    const modal = await this.modalCtr.create({
+      component: DealModalComponent,
+      componentProps: { deal, storeLogoUrl },
+      breakpoints: [0, 0.90],
+      initialBreakpoint: 0.90,
+    });
+    await modal.present();
+    
+    const {data, role} = await modal.onWillDismiss()
+    if (role === 'viewdeal') {
+      this.gameProvider.openDeal(data);
+    }
+
   }
 
   getStoreLogo(storeID: string): string {

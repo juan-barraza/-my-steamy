@@ -3,12 +3,14 @@ import { CommonModule } from '@angular/common';
 import { GameProvider } from './services/GameProvider/game-provider';
 import { CardComponent } from './components/CardComponent/card-component.component';
 import { IonicModule } from '@ionic/angular';
+import { DealModalComponent } from './components/deal-modal/deal-modal.component';
 
 
 
 @NgModule({
   declarations: [
-    CardComponent
+    CardComponent,
+    DealModalComponent,
   ],
   imports: [
     CommonModule,
@@ -18,7 +20,8 @@ import { IonicModule } from '@ionic/angular';
     GameProvider
   ],
   exports: [
-    CardComponent
+    CardComponent,
+    DealModalComponent,
   ]
 })
 export class SharedModule { }
