@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { Deal } from '../core/models/deal.type';
-import { GameProvider } from '../shared/services/GameProvider/game-provider';
-import { Store } from '../core/models/store.type';
+import { Deal } from '../../../core/models/deal.type';
+import { GameProvider } from '../../../shared/services/GameProvider/game-provider';
+import { Store } from '../../../core/models/store.type';
 import { debounceTime, distinctUntilChanged, Subject, Subscription, switchMap } from 'rxjs';
 import { ModalController } from '@ionic/angular';
-import { DealModalComponent } from '../shared/components/deal-modal/deal-modal.component';
+import { DealModalComponent } from '../../../shared/components/deal-modal/deal-modal.component';
 
 @Component({
   selector: 'app-home',
