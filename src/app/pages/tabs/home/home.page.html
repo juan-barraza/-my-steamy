@@ -42,7 +42,9 @@
       [deal]="deal"
       [storeLogoUrl]="getStoreLogo(deal.storeID)"
       layout="vertical"
+      [isFavorite]="favoriteDealId === deal.dealID"
       (dealClicked)="onDetailDeal($event)"
+      (favoriteToggled)="favoriteToggle($event)"
     >
     </app-card-component>
     }
@@ -54,7 +56,9 @@
       [deal]="deal"
       [storeLogoUrl]="getStoreLogo(deal.storeID)"
       layout="horizontal"
+      [isFavorite]="favoriteDealId === deal.dealID"
       (dealClicked)="onDetailDeal($event)"
+      (favoriteToggled)="favoriteToggle($event)"
     >
     </app-card-component>
     }

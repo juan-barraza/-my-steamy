@@ -5,6 +5,7 @@ import { Store } from '../../../core/models/store.type';
 import { debounceTime, distinctUntilChanged, Subject, Subscription, switchMap } from 'rxjs';
 import { ModalController } from '@ionic/angular';
 import { DealModalComponent } from '../../../shared/components/deal-modal/deal-modal.component';
+import { FavoriteService } from 'src/app/core/services/favorite-service/favorite-service';
 
 @Component({
   selector: 'app-home',
@@ -17,12 +18,14 @@ export class HomePage implements OnInit {
   public stores: Store[] | [] = [];
   public isSearchingDeal: boolean = false;
   public isLoadingDeal: boolean = false;
+  public favoriteDealId: string | undefined ;
   private searchSubjet = new Subject<string>();
   private searchSubscription!: Subscription;
 
   constructor(
     private readonly gameProvider: GameProvider,
     private readonly modalCtr: ModalController,
+    private readonly favoriteService:FavoriteService,
   ) { }
 
   ngOnInit() {
@@ -102,6 +105,17 @@ export class HomePage implements OnInit {
           console.error(error);
         }
       });
+  }
+
+  async favoriteToggle(deal: Deal) {
+    const currentDealFavorite = await this.favoriteService.getDealFavorite();
+    if (currentDealFavorite?.dealID === deal.dealID) {
+      await this.favoriteService.removeDealFavorite();
+      this.favoriteDealId = undefined;
+    } else {
+      await this.favoriteService.saveDealFavorite(deal);
+      this.favoriteDealId = deal.dealID;
+    }
   }
 
   ngOnDestroy() {

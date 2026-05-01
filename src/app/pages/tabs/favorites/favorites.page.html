@@ -11,8 +11,16 @@
 </ion-header>
 
 <ion-content>
-  <h1>💖 Your Favorite Game</h1>
-  <app-card-component
-  >
-  </app-card-component>
+  @if (!favoriteDeal) {
+    <p>You do not have any favorite game yet!</p>
+  } @else { 
+    <h1>💖 Your Favorite Game</h1>
+    <app-card-component
+    [deal]="favoriteDeal"
+    [storeLogoUrl]="getStoreLogo(favoriteDeal.storeID)"
+    (dealClicked)="onDetailDeal($event)"
+    [isFavorite]="true"
+    >
+    </app-card-component>
+  }
 </ion-content>

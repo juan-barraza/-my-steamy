@@ -22,7 +22,6 @@ export class CardComponent implements OnInit {
 
   onFavorite(event: Event) {
     event.stopPropagation();
-    this.isFavorite = !this.isFavorite;
     this.favoriteToggled.emit(this.deal!);
   }
 
