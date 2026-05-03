@@ -26,7 +26,7 @@ export class FavoritesPage implements OnInit {
     this.getStores();
   }
 
-  ionViewWillEnter() {
+  async ionViewWillEnter() {
     this.getFavorite();
   }
 
