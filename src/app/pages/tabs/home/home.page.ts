@@ -55,6 +55,10 @@ export class HomePage implements OnInit {
     })
   }
 
+  async ionViewWillEnter() {
+    this.getFavorite();
+  }
+
   async onDetailDeal(deal: Deal) {
     const storeLogoUrl = this.getStoreLogo(deal.storeID);
     const modal = await this.modalCtr.create({
@@ -115,6 +119,11 @@ export class HomePage implements OnInit {
       await this.favoriteService.saveDealFavorite(deal);
       this.favoriteDealId = deal.dealID;
     }
+  }
+
+  private async getFavorite() {
+    const favorite = await this.favoriteService.getDealFavorite();
+    this.favoriteDealId = favorite?.dealID ?? undefined;
   }
 
   ngOnDestroy() {

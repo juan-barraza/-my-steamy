@@ -47,7 +47,12 @@ public class WidgetUpdateService extends Service {
     if (intent != null && intent.hasExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS)) {
       widgetIds = intent.getIntArrayExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS);
     }
-    startPreferenceChecker();
+
+    if (handler == null) {
+      handler = new Handler();
+      startCarousel();
+      startPreferenceChecker();
+    }
 
     String gameId = getFavoriteGameId();
     if (gameId != null && !gameId.equals(lastGameId)) {
@@ -56,10 +61,6 @@ public class WidgetUpdateService extends Service {
       new FetchAllDealsTask(this).execute(gameId);
     }
 
-    if (handler == null) {
-      handler = new Handler();
-      startCarousel();
-    }
     return  START_STICKY;
   }
 
@@ -128,9 +129,9 @@ public class WidgetUpdateService extends Service {
           currentDealIndex = 0;
           new FetchAllDealsTask(WidgetUpdateService.this).execute(gameId);
         }
-        handler.postDelayed(this, 2000);
+        handler.postDelayed(this, 1000);
       }
-    }, 2000);
+    }, 1000);
   }
   private void showCurrentDeal() {
     if (widgetIds == null || currentDeals.isEmpty()) return;
@@ -167,11 +168,14 @@ public class WidgetUpdateService extends Service {
       "-" + deal.getSavings().split("\\.")[0] + "%"
     );
 
-    assert store != null;
-    views.setImageViewBitmap(
-      nextPage == 0 ? R.id.store_logo_0 : R.id.store_logo_1,
-      store.getLogoBitmap()
-    );
+
+    if (store != null && store.getLogoBitmap() != null) {
+      views.setImageViewBitmap(
+        nextPage == 0 ? R.id.store_logo_0 : R.id.store_logo_1,
+        store.getLogoBitmap()
+      );
+    }
+
     views.setDisplayedChild(R.id.view_flipper, nextPage);
     currentPage = nextPage;
 
